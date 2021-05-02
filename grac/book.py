@@ -22,6 +22,7 @@ class Book:
         return "All accounts have names"
 
     def set_account_name(self, account, name):
+        """Add account name"""
         self.accounts.append(Account(account, name))
 
     def set_account_names(self, accounts_list):
