@@ -25,6 +25,7 @@ class Book:
         self.accounts.append(Account(account, name))
 
     def set_account_names(self, accounts_list):
+        """Προσθήκη ονομάτων σε λογαριασμούς μαζικά"""
         for account, name in accounts_list:
             self.set_account_name(account, name)
 
