@@ -1,5 +1,6 @@
 from .transaction import Transaction
 from .account import Account
+from .partner import Partner
 
 
 class Book:
@@ -8,6 +9,7 @@ class Book:
         self.max_date = ''
         self.trans = []
         self.accounts = []
+        # self.partners = []
 
     @property
     def xrisi(self):
@@ -15,7 +17,7 @@ class Book:
 
     @staticmethod
     def check_account_names():
-        noname = Account.lista_without_names()
+        noname = Account.all_without_names()
         if noname:
             print('There are accounts without name')
             return [acc.code for acc in noname]

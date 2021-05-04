@@ -1,3 +1,4 @@
+from .partner import Partner
 from .line import Line
 
 
@@ -7,6 +8,7 @@ class Transaction:
         self.par = par  # Παραστατικό
         self.per = per  # Περιγραφή
         self.afm = afm  # ΑΦΜ συναλλασσομένου
+        self.partner = Partner(afm)
         self.lines = []  # Αναλυτικές γραμμές
         self._number_of_lines = 0
         self._delta = 0

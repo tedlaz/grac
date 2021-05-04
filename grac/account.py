@@ -22,11 +22,11 @@ class Account:
         return obj
 
     @staticmethod
-    def lista():
+    def all():
         return list(Account._pool.values())
 
     @staticmethod
-    def lista_without_names():
+    def all_without_names():
         alist = []
         for account in Account._pool.values():
             if account.name == '':
