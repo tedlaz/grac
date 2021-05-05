@@ -4,6 +4,7 @@ from .line import Line
 
 class Transaction:
     """Greek accounting Transaction class"""
+
     def __init__(self, dat: str, par: str, per: str, afm: str = ""):
         self.dat = dat  # Ημερομηνία
         self.par = par  # Παραστατικό
@@ -15,11 +16,11 @@ class Transaction:
         self._delta = 0
 
     def account_lines(self, account_code: str) -> list:
-        lins_with_date = []
-        for lin in self.lines:
-            if lin.account.code.startswith(account_code):
-                lins_with_date.append(lin)
-        return lins_with_date
+        lines = []
+        for line in self.lines:
+            if line.account.code.startswith(account_code):
+                lines.append(line)
+        return lines
 
     def add_line(self, code: str, value: float) -> None:
         self.lines.append(Line(code, value, self))
@@ -36,6 +37,16 @@ class Transaction:
     def isok(self):
         if self._number_of_lines > 1 and self._delta == 0:
             return True
+        return False
+
+    @property
+    def is_ee(self):
+        """Εάν το άρθρο ανήκει στα Εσοδα-Εξοδα που είναι ουσιαστικά οι
+        λογαριασμοί που δίνουν αποτελέσματα
+        """
+        for line in self.lines:
+            if line.account.code.startswith(("2", "6", "7")):
+                return True
         return False
 
     def __repr__(self):

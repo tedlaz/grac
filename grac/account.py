@@ -1,5 +1,24 @@
 import weakref
+
 ACCOUNT_SPLITTER = "."
+
+ACT = {"FPA": "54.00"}
+FPA = "54.00"
+PAGIA = "1"
+APOTHEMATA = "2"
+APAITISEIS = "3"
+KEFALAIO = "4"
+YPOXREOSEIS = "5"
+EJODA = "6"
+ESODA = "7"
+APOTELESMATA = "8"
+
+NORMAL = 1
+CREDIT = -1
+
+ESOTERIKO = 1
+ENDOKOINOTIKES = 2
+EKSOTERIKO = 3
 
 
 class Account:
@@ -29,7 +48,7 @@ class Account:
     def all_without_names():
         alist = []
         for account in Account._pool.values():
-            if account.name == '':
+            if account.name == "":
                 alist.append(account)
         return alist
 
@@ -39,16 +58,16 @@ class Account:
     @property
     def category(self):
         """Κατηγορία λογαριασμού
-           1. Πάγιο
-           2. Απόθεμα
-           3. Απαίτηση
-           4. Κεφάλαιο
-           5. Υποχρέωση
-           6. Έξοδο
-           7. Έσοδο
-           2 + 6 + 7 + διαφορά απόγραφής = κέρδος περιόδου
-           1, 2, 6, 7 μπορεί να έχουν ΦΠΑ
-           0 54.00 είναι ο root λογαριασμός ΦΠΑ
+        1. Πάγιο
+        2. Απόθεμα
+        3. Απαίτηση
+        4. Κεφάλαιο
+        5. Υποχρέωση
+        6. Έξοδο
+        7. Έσοδο
+        2 + 6 + 7 + διαφορά απόγραφής = κέρδος περιόδου
+        1, 2, 6, 7 μπορεί να έχουν ΦΠΑ
+        0 54.00 είναι ο root λογαριασμός ΦΠΑ
         """
         pass
 

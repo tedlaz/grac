@@ -7,8 +7,8 @@ class Book:
     """Ημερολόγιο λογιστικών εγγραφών class"""
 
     def __init__(self):
-        self.min_date = ''
-        self.max_date = ''
+        self.min_date = ""
+        self.max_date = ""
         self.trans = []
         self.accounts = []
         # self.partners = []
@@ -21,7 +21,7 @@ class Book:
     def check_account_names():
         noname = Account.all_without_names()
         if noname:
-            print('There are accounts without name')
+            print("There are accounts without name")
             return [acc.code for acc in noname]
         return "All accounts have names"
 
@@ -38,7 +38,7 @@ class Book:
         for trn in self.trans:
             if not trn.isok():
                 raise ValueError(f"Transaction {trn} is not ok")
-        return 'All transactions are ok'
+        return "All transactions are ok"
 
     def __repr__(self):
         return (
@@ -48,7 +48,7 @@ class Book:
 
     def _fix_min_max_date(self, adate):
         # Αποθήκευση ελάχιστης και μέγιστης ημερομηνίας
-        if self.min_date == '':
+        if self.min_date == "":
             self.min_date = self.max_date = adate
 
         if adate > self.max_date:
@@ -57,7 +57,7 @@ class Book:
         if adate < self.min_date:
             self.min_date = adate
 
-    def _filter_by_date(self, apo: str = '', eos: str = '') -> Transaction:
+    def _filter_by_date(self, apo: str = "", eos: str = "") -> Transaction:
         for trn in self.trans:
             if apo and trn.dat < apo:
                 continue
@@ -84,7 +84,7 @@ class Book:
         for trn in self._filter_by_date(apo, eos):
             pass
 
-    def kartella(self, account_code: str, apo='', eos='') -> list:
+    def kartella(self, account_code: str, apo="", eos="") -> list:
         lines = []
         for trn in self._filter_by_date(apo, eos):
             for lin in trn.account_lines(account_code):

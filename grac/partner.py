@@ -13,13 +13,13 @@ class Partner:
         obj = cls._pool.get(afm)
         # otherwise - create new one (and add it to the pool)
         if obj is None:
-            if afm == '':
+            if afm == "":
                 return None
             obj = object.__new__(Partner)
             cls._pool[afm] = obj
             obj.afm, obj.name = afm, name
         else:
-            """"""
+            """ """
             if name:
                 obj.name = name
         return obj
@@ -40,7 +40,7 @@ class Partner:
     def all_without_names():
         alist = []
         for partner in Partner._pool.values():
-            if partner.name == '':
+            if partner.name == "":
                 alist.append(partner)
         return alist
 

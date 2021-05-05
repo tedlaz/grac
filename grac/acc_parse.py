@@ -1,32 +1,32 @@
 def check_validity(chart, eelines):
     """Έλεγχος εάν όλοι οι λογαριασμοί που πρέπει να μπουν στο
-           Βιβλίο εσόδων-Εξόδων έχουν σωστές παραμέτρους
+          Βιβλίο εσόδων-Εξόδων έχουν σωστές παραμέτρους
 
-     [ee]
-     # ee    perigrafi
-                 2.24    Αγορές ΦΠΑ 24%
+    [ee]
+    # ee    perigrafi
+                2.24    Αγορές ΦΠΑ 24%
 
-                 [acc]
-           # Λμός        Λ/μος ΦΠΑ     NR  CH  Φ2       ΕΕ
-     20.01.00.024  54.00.20.024  24  24  361      2.24
+                [acc]
+          # Λμός        Λ/μος ΦΠΑ     NR  CH  Φ2       ΕΕ
+    20.01.00.024  54.00.20.024  24  24  361      2.24
 
-     Θα πρέπει η τιμή ΕΕ(2.24) του [acc] να υπάρχει στο [ee]
+    Θα πρέπει η τιμή ΕΕ(2.24) του [acc] να υπάρχει στο [ee]
     """
     for val in chart.values():
-        if val['ee'] == '':
+        if val["ee"] == "":
             continue
-        if val['ee'] not in eelines:
+        if val["ee"] not in eelines:
             raise ValueError(f"{val['ee']} not in {eelines}")
 
 
 class F2Ee:
     def __init__(self):
-        self.acount = '24.01.00.024'
-        self.fpa_account = '54.00.24.024'
+        self.acount = "24.01.00.024"
+        self.fpa_account = "54.00.24.024"
         self.fpa4f2 = 24
         self.fpa4check = 24
-        self.f2_codes = ['361']
-        self.ee_code = '2.e'
+        self.f2_codes = ["361"]
+        self.ee_code = "2.e"
 
     def check_transaction(self, tran):
         for lin in tran.lines:
@@ -35,9 +35,9 @@ class F2Ee:
 
 def acc_parse(fil):
     """Εδώ παρσάρουμε το αρχείο με τις παραμέτρους των :
-       1. Στηλών βιβλίου Εσόδων-Εξόδων
-       2. Κινούμενων λογαριασμών λογιστικής
-       3. Λογιστικού σχεδίου ανωτεροβαθμίων μή κινούμενων
+    1. Στηλών βιβλίου Εσόδων-Εξόδων
+    2. Κινούμενων λογαριασμών λογιστικής
+    3. Λογιστικού σχεδίου ανωτεροβαθμίων μή κινούμενων
     """
     f2ee = {}
     ee_lines = {}
@@ -49,7 +49,7 @@ def acc_parse(fil):
             sline = line.strip()
             if len(sline) < 3:
                 continue
-            if sline.startswith('#'):
+            if sline.startswith("#"):
                 continue
             if sline == "[f2ee]":
                 state = F2EE
@@ -64,27 +64,27 @@ def acc_parse(fil):
             if state == F2EE:
                 # Λμός Λ/μος ΦΠΑ     NR  CH  Φ2       ΕΕ
                 acc, vacc, nr, ch, f2, ee = sline.split()
-                vacc = '' if vacc == '-' else vacc
-                nr = 0 if nr == '-' else int(nr)
-                ch = 0 if ch == '-' else int(ch)
-                f2 = '' if f2 == '-' else f2
-                ee = '' if ee == '-' else ee
+                vacc = "" if vacc == "-" else vacc
+                nr = 0 if nr == "-" else int(nr)
+                ch = 0 if ch == "-" else int(ch)
+                f2 = "" if f2 == "-" else f2
+                ee = "" if ee == "-" else ee
                 f2ee[acc] = {
-                    'account': acc,
-                    'fpa-account': vacc,
-                    'f2-fpa': nr,
-                    'check-fpa': ch,
-                    'f2-codes': f2.split('|'),
-                    'ee': ee
+                    "account": acc,
+                    "fpa-account": vacc,
+                    "f2-fpa": nr,
+                    "check-fpa": ch,
+                    "f2-codes": f2.split("|"),
+                    "ee": ee,
                 }
 
             elif state == EE_LINES:
                 ee, *per = sline.split()
-                ee_lines[ee] = ' '.join(per)
+                ee_lines[ee] = " ".join(per)
 
             elif state == CHART0:
                 acc, *per = sline.split()
-                chart0[acc] = ' '.join(per)
+                chart0[acc] = " ".join(per)
 
     check_validity(f2ee, ee_lines)
     return f2ee, chart0, ee_lines
@@ -92,7 +92,7 @@ def acc_parse(fil):
 
 def match_account(acc, chart):
     """Ας πούμε ότι ο λογαριασμός είναι ο 65.00.00.000
-       εμείς θα πρέπει να βρούμε την γραμμή από το chart του 65
+    εμείς θα πρέπει να βρούμε την γραμμή από το chart του 65
 
     """
     for i in range(len(acc) + 1)[::-1]:
@@ -109,5 +109,5 @@ def parse_accounts(account_file):
             if len(sline) < 10:
                 continue
             acc, *name = sline.split()
-            acc_list.append((acc, ' '.join(name)))
+            acc_list.append((acc, " ".join(name)))
     return acc_list
