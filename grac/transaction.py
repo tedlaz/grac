@@ -3,6 +3,7 @@ from .line import Line
 
 
 class Transaction:
+    """Greek accounting Transaction class"""
     def __init__(self, dat: str, par: str, per: str, afm: str = ""):
         self.dat = dat  # Ημερομηνία
         self.par = par  # Παραστατικό

@@ -1,9 +1,10 @@
+"""Module partner"""
 import weakref
 from tedutil.validators import is_afm
 
 
 class Partner:
-    """Flyweight implementation of parner"""
+    """Flyweight implementation of parner class"""
 
     _pool = weakref.WeakValueDictionary()
 

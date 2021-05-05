@@ -4,6 +4,8 @@ from .partner import Partner
 
 
 class Book:
+    """Ημερολόγιο λογιστικών εγγραφών class"""
+
     def __init__(self):
         self.min_date = ''
         self.max_date = ''
@@ -51,6 +53,7 @@ class Book:
 
         if adate > self.max_date:
             self.max_date = adate
+
         if adate < self.min_date:
             self.min_date = adate
 

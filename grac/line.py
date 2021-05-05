@@ -1,7 +1,9 @@
+"""Line classes"""
 from .account import Account
 
 
 class LineBase:
+    """Base line class"""
 
     DEBIT, CREDIT = 1, 2
 
@@ -33,6 +35,7 @@ class LineBase:
 
 
 class Line(LineBase):
+    """Accounting Line class"""
 
     def __init__(self, code: str, value: float, parent=None) -> None:
         super().__init__(code, value)
